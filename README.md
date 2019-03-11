@@ -51,6 +51,12 @@ cd /sc/orga/loosr01a/daiane/projects/smr/
 ## GWAS Locke et al on UKB, eQTLgen
 
 
+
+
+Of the 104 highly prioritized genes, 22 are new candidates: that is, there was no GWAS SNP achieving PGWAS < 5 × 10−8 within 0.5 Mb of the probe 
+
+
+
 File with significant (FDR<0.05) cis-eQTL results: cis-eQTL_significant_20181017.txt.gz
 These files contain all cis-eQTL results from eQTLGen, accompanying the article.
 19,960 genes that showed expression in blood were tested.
