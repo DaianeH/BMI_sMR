@@ -48,7 +48,36 @@ cd /sc/orga/loosr01a/daiane/projects/smr/
 ./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/Brain-eMeta/Brain-eMeta --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_brainemeta  --thread-num 10 
 
 ### RUN 4
+## GWAS Locke et al on Gtex 7, replicating Yengo et al. 2018
+while read tissue ; do ./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/GTEx_V7_cis_eqtl_summary_lite/$tissue --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_$tissue  --thread-num 10 ; done < /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/GTEx_V7_cis_eqtl_summary_lite/listTissues.txt
+
+### RUN 5
 ## GWAS Locke et al on UKB, eQTLgen
+File with significant (FDR<0.05) cis-eQTL results: cis-eQTL_significant_20181017.txt.gz
+https://molgenis26.gcc.rug.nl/downloads/eqtlgen/cis-eqtl/README_cis
+These files contain all cis-eQTL results from eQTLGen, accompanying the article.
+19,960 genes that showed expression in blood were tested.
+Every SNP-gene combination with a distance <1Mb from the center of the gene and  tested in at least 2 cohorts was included.
+Associations where SNP/proxy positioned in Illumina probe were not removed from combined analysis.
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cis-eQTLsFDR0.05-ProbeLevel.txt_besd --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_eqtlgen  --thread-num 10 
+
+### RUN 6
+## GWAS Locke UKB signifiacant from run on eQTLgen, on CAGE
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cage_eqtl_data_lite_hg19/CAGE.sparse.lite --extract-snp /sc/orga/projects/loosr01a/daiane/projects/smr/output/lockeUKB_eqtlgen_sigSNPs.list --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_CAGE_rep --thread-num 10
+
+smr --bfile mydata --gwas-summary mygwas.ma --beqtl-summary myeqtl --extract-snp mysnp.list --extract-probe myprobe.list --out mysmr 
+
+
+### RUN 7
+## GWAS Locke UKB signifiacant from run on CAGE, on eQTLgen
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cis-eQTLsFDR0.05-ProbeLevel.txt_besd --extract-snp /sc/orga/projects/loosr01a/daiane/projects/smr/output/cage_sigsnps_list.txt --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_eQTLgen_rep --thread-num 10
+
+
+### RUN 8
+## GWAS Locke UKB on CAGE complete (not the lite version)
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cage_eqtl_data/CAGE.sparse. --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_CAGE_complete --thread-num 10
+
+
 
 
 
