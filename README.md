@@ -75,22 +75,70 @@ smr --bfile mydata --gwas-summary mygwas.ma --beqtl-summary myeqtl --extract-snp
 
 ### RUN 8
 ## GWAS Locke UKB on CAGE complete (not the lite version)
-./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cage_eqtl_data/CAGE.sparse. --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_CAGE_complete --thread-num 10
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cage_eqtl_data/CAGE.sparse --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_CAGE_complete --thread-num 10
+
+
+### RUN 9
+## GWAS Locke UKB on Gtex brain only
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/GTEx-brain/GTEx-brain_std --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_Gt --thread-num 10
+
+### RUN 10
+## GWAS Locke UKB on CMC only
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/CMC_2/CMC_eqtl --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_CMC --thread-num 10
+
+
+### RUN 11
+## GWAS Locke UKB on Rosmap only
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/ROSMAP_2/Rosmap_eQTL_std --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_ROSMAP --thread-num 10
 
 
 
+###### COMPARISON: RUNNING THE SAME ANALYSIS BUT WITH WAIST-HIP RATIO AS GWAS #######
+whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only.txt.gz
+
+awk '{print $3, $4, $5, $6, $7, $8, $9, $10}' Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only.txt > Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt 
+
+Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt
+
+## GWAS WHR, eQTL brain eMeta
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/Brain-eMeta/Brain-eMeta --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/whr_brainemeta  --thread-num 10 
+
+## GWAS WHR, eQTL eQTLgen
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cis-eQTLsFDR0.05-ProbeLevel.txt_besd --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/whr_eqtlgen  --thread-num 10 
+
+## GWAS WHR on CMC only
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/CMC_2/CMC_eqtl --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_CMC --thread-num 10
 
 
 
-Of the 104 highly prioritized genes, 22 are new candidates: that is, there was no GWAS SNP achieving PGWAS < 5 × 10−8 within 0.5 Mb of the probe 
+#### TO RUN
+## GWAS WHR on Rosmap only
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt  --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/ROSMAP_2/Rosmap_eQTL_std --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_ROSMAP --thread-num 10
+
+## GWAS WHR on Gtex brain only
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/GTEx-brain/GTEx-brain_std --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_GtexBrain --thread-num 10
+
+
+#### TO DO
+
+- Check which of the genes are new (Of the 104 highly prioritized genes, 22 are new candidates: that is, there was no GWAS SNP achieving PGWAS < 5 × 10−8 within 0.5 Mb of the probe )
+
+- Compare results of Brain e-Meta and 3 brain cohorts separetely
+
+- Overlap the amount of genes found for BMI x WHR
+
+- Locus plots
+
+- Enrichment in regulatory regions?
+
+- PICS probability / FINEMAP
+
+- Manuscript
+
+- ppt presentation
 
 
 
-File with significant (FDR<0.05) cis-eQTL results: cis-eQTL_significant_20181017.txt.gz
-These files contain all cis-eQTL results from eQTLGen, accompanying the article.
-19,960 genes that showed expression in blood were tested.
-Every SNP-gene combination with a distance <1Mb from the center of the gene and  tested in at least 2 cohorts was included.
-Associations where SNP/proxy positioned in Illumina probe were not removed from combined analysis.
 
 RESULTS
 
