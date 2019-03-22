@@ -110,13 +110,23 @@ Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt
 ./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/CMC_2/CMC_eqtl --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_CMC --thread-num 10
 
 
-
-#### TO RUN
 ## GWAS WHR on Rosmap only
 ./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt  --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/ROSMAP_2/Rosmap_eQTL_std --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_ROSMAP --thread-num 10
 
 ## GWAS WHR on Gtex brain only
-./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/GTEx-brain/GTEx-brain_std --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_GtexBrain --thread-num 10
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/GTEx-brain/GTEx_Brain_std --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_GtexBrain --thread-num 10
+
+
+
+CONCLUDED:
+whr_brainemeta.smr
+WHR_CMC
+WHR_GtexBrain.smr
+WHR_ROSMAP.smr
+locke_ukb_ROSMAP.smr
+locke_ukb_CMC.smr
+
+
 
 
 #### TO DO
