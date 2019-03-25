@@ -128,6 +128,32 @@ locke_ukb_CMC.smr
 
 
 
+module load bedtools/2.27.1
+
+
+for file in *smr; do
+
+#chr, probe bp, probe, gene, the rest
+awk 'BEGIN { OFS = "\t"} { print $2, $4, $1, $3, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21}' /sc/orga/projects/loosr01a/daiane/projects/smr/output/output2/lockeukb_gtexbrain_2.smr > /sc/orga/projects/loosr01a/daiane/projects/smr/output/output2/lockeukb_gtexbrain_2.bed
+
+for file in *smr; do awk 'BEGIN { OFS = "\t"} { print $2, $4, $1, $3, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21}' $file > $file\.bed; done
+
+sed -i 's/^/chr/' lockeukb_gtexbrain_2.bed
+
+
+
+### prepare gwas bed
+awk 'BEGIN { OFS = "\t"} { print $1, $2 - 250000, $2 + 250000, $3, $4, $5, $6, $7, $8, $9, $10}' /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt > /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.bed
+
+sed -i 's/^/chr/' /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.bed
+
+
+intersectBed intersect -a file1 -b file2 -wb > locke_cmc_gwas.txt
+
+
+
+
+
 
 #### TO DO
 
