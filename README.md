@@ -118,17 +118,6 @@ Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt
 
 
 
-CONCLUDED:
-whr_brainemeta.smr
-WHR_CMC
-WHR_GtexBrain.smr
-WHR_ROSMAP.smr
-locke_ukb_ROSMAP.smr
-locke_ukb_CMC.smr
-
-
-
-module load bedtools/2.27.1
 
 
 for file in *smr; do
@@ -145,10 +134,42 @@ sed -i 's/^/chr/' lockeukb_gtexbrain_2.bed
 ### prepare gwas bed
 awk 'BEGIN { OFS = "\t"} { print $1, $2 - 250000, $2 + 250000, $3, $4, $5, $6, $7, $8, $9, $10}' /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt > /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.bed
 
+awk 'BEGIN { OFS = "\t"}  { print $1, $2 - 250000, $2 + 250000, $3, $4, $5, $6, $7, $8, $9}' WHR_GWAS.bed > WHR_GWAS2.bed
+
+Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only.txt
+
 sed -i 's/^/chr/' /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.bed
 
+sed -i '1d' filename
 
-intersectBed intersect -a file1 -b file2 -wb > locke_cmc_gwas.txt
+module load bedtools/2.27.1
+
+intersectBed intersect -wa -wb -a lockeukb_CMC_2.smr.bed -b locke_ukbgwas.bed > locke_cmc_gwas.txt
+
+
+
+
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21}' locke_eqtlgen.smr.bed > locke_eqtlgen.smr2.bed
+
+
+
+
+intersect
+bedtools intersect -wa -wb -a lockeukb_rosmap_2.smr2.bed -b locke_ukbgwas2.bed > locke_rosmap_gwas.txt
+
+awk print gene + pvalue
+awk 'BEGIN { OFS = "\t"} { print $4, $5, $32}' locke_rosmap_gwas.txt > locke_rosmap_gwas_filt.txt
+
+sort by pvalue
+sort -k3 -g locke_rosmap_gwas_filt.txt > locke_rosmap_gwas_filt_sort_100.tx
+
+rm duplicate gene
+awk '!seen[$1]++' locke_rosmap_gwas_filt_sort_100.txt > locke_rosmap_gwas_filt_nondup.txt
+
+
+
+
+
 
 
 
