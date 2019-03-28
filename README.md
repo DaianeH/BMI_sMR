@@ -173,9 +173,6 @@ awk '!seen[$1]++' locke_rosmap_gwas_filt_sort_100.txt > locke_rosmap_gwas_filt_n
 
 
 
-
-
-
 #### TO DO
 
 - Check which of the genes are new (Of the 104 highly prioritized genes, 22 are new candidates: that is, there was no GWAS SNP achieving PGWAS < 5 × 10−8 within 0.5 Mb of the probe )
@@ -189,10 +186,6 @@ awk '!seen[$1]++' locke_rosmap_gwas_filt_sort_100.txt > locke_rosmap_gwas_filt_n
 - Enrichment in regulatory regions?
 
 - PICS probability / FINEMAP
-
-- Manuscript
-
-- ppt presentation
 
 
 
