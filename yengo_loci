@@ -1,0 +1,5 @@
+-- Get all tables of genes identified in my SMR analysis and merge in one (last column: all names of cohorts where said gene was identified).
+-- Get Yengo 138 genes from Summary statistics webpage (excel / txt file Yengo138_BMI_genes) and use overlap.pl (or merge tables?) to merge with those I identified.
+-- Put duplicates in the same line
+-- Merge this table with the total list of loci identified as significant by Yengo
+-- Merge this with the results from Locke et al (last column = Locke et al genes)
