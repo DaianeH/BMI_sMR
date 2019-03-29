@@ -189,6 +189,51 @@ awk '!seen[$1]++' locke_rosmap_gwas_filt_sort_100.txt > locke_rosmap_gwas_filt_n
 
 
 
+---- SMR plots
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/CMC_2/CMC_eqtl --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/ROSMAP_2/Rosmap_eQTL_std --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cis-eQTLsFDR0.05-ProbeLevel.txt_besd --out plot_ENSG00000131558 --plot --probe ENSG00000131558 --probe-wind 500 --gene-list data/glist-hg19_biomart_ready.dms
+
+
+### try with the R script
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/CMC_2/CMC_eqtl --out plot_ENSG00000131558_cmc --plot --probe ENSG00000131558 --probe-wind 500 --gene-list /sc/orga/projects/loosr01a/daiane/projects/smr/plot/plot/glist_hg19_refseq.txt
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/ROSMAP_2/Rosmap_eQTL_std --out plot_ENSG00000131558_rosmap --plot --probe ENSG00000131558 --probe-wind 500 --gene-list /sc/orga/projects/loosr01a/daiane/projects/smr/plot/plot/glist_hg19_refseq.txt
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cis-eQTLsFDR0.05-ProbeLevel.txt_besd --out plot_ENSG00000131558_eQTLgen --plot --probe ENSG00000131558 --probe-wind 500 --gene-list /sc/orga/projects/loosr01a/daiane/projects/smr/plot/plot/glist_hg19_refseq.txt
+
+
+
+
+source("/hpc/users/hemerd01/daiane/projects/smr/plot/plot/plot_SMR.r") 
+# Read the data file in R:
+SMRData = ReadSMRData("/hpc/users/hemerd01/daiane/projects/smr/plot/plot_ENSG00000131558_cmc.ENSG00000131558.txt")
+# Plot the SMR results in a genomic region centred around a probe:
+SMRLocusPlot(data=SMRData, smr_thresh=8.4e-6, heidi_thresh=0.05, plotWindow=1000, max_anno_probe=16)
+# smr_thresh: genome-wide significance level for the SMR test.
+# heidi_thresh: threshold for the HEIDI test. The default value is 0.05.
+# cis_wind: size of a window centred around the probe to select cis-eQTLs for plot. The default value is 2000Kb.
+# max_anno_probe: maximum number of probe names to be displayed on the figure. The default value is 16.
+
+
+
+
+
+
+
+
+
+
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/cis-eQTLsFDR0.05-ProbeLevel.txt_besd --out /sc/orga/projects/loosr01a/daiane/projects/smr/plot/plot/plot_ENSG00000115073 --plot --probe ENSG00000115073 --probe-wind 500 --gene-list /sc/orga/projects/loosr01a/daiane/projects/smr/plot/plot/glist_hg19_refseq.txt
+
+
+
+
+
+
+
+
 
 RESULTS
 
