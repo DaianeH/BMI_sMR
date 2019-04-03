@@ -22,6 +22,7 @@ BMI
 WHR
 -- Prepare eQTL files from Muther study for SMR
     -- As in https://www.nature.com/articles/s41467-018-03178-z and 
+    Genome-wide association study identifies susceptibility loci for B-cell childhood acute lymphoblastic leukemia
 -- Prepare eQTL files from Adipose Gtex study for SMR
     -- Download GTEx_Analysis_v7_eQTL.tar.gz from https://gtexportal.org/home/datasets , filter only those with 'qval' ≤ 0.05, follow the https://cnsgenomics.com/software/smr/#DataResource
 -- METSIM study has SMR files but they are all men:
