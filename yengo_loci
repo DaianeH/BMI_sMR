@@ -1,5 +1,48 @@
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 datafile_1 --file2 datafile_2 --index index_string
+
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl merge_tables.pl --file1 cmc.txt --file2 eqtlgen.txt --index probeID > eQTLgen_cmc.txt
+
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl merge_tables.pl --file1 gtex_brain.txt --file2 eQTLgen_cmc.txt --index probeID > eQTLgen_cmc_gtex.txt
+
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl merge_tables.pl --file1 rosmap.txt --file2 eQTLgen_cmc_gtex.txt --index probeID > eQTLgen_cmc_gtex_rosmap.txt
+
+
+
+
+
+
+BMI
 -- Get all tables of genes identified in my SMR analysis and merge in one (last column: all names of cohorts where said gene was identified).
 -- Get Yengo 138 genes from Summary statistics webpage (excel / txt file Yengo138_BMI_genes) and use overlap.pl (or merge tables?) to merge with those I identified.
 -- Put duplicates in the same line
 -- Merge this table with the total list of loci identified as significant by Yengo
 -- Merge this with the results from Locke et al (last column = Locke et al genes)
+
+
+WHR
+-- Prepare eQTL files from Muther study for SMR
+    -- As in https://www.nature.com/articles/s41467-018-03178-z and 
+-- Prepare eQTL files from Adipose Gtex study for SMR
+    -- Download GTEx_Analysis_v7_eQTL.tar.gz from https://gtexportal.org/home/datasets , filter only those with 'qval' ≤ 0.05, follow the https://cnsgenomics.com/software/smr/#DataResource
+-- METSIM study has SMR files but they are all men:
+      https://www.sciencedirect.com/science/article/pii/S0002929717300289#mmc2
+-- Merge all SMR results in brain
+
+
+- abdominal fat tissue (n=742 for omental fat and n=610 for subcutaneous fat) from the bariatric surgery study68 (Zhong, H., Yang, X., Kaplan, L. M., Molony, C. & Schadt, E. E. Integrating pathway analysis and genetics of gene expression for genome-wide association studies. Am. J. Hum. Genet. 86, 581–591 (2010).), 
+-  abdominal subcutaneous fat tissue (n=54) and gluteal subcutaneous fat tissue (n=65) from the MolOBB study69 (Min, J. L. et al. Coexpression network analysis in abdominal and gluteal adipose tissue reveals regulatory genetic loci for metabolic syndrome and related phenotypes. PLoS Genet. 8, e1002505 (2012).)
+- Subcutaneous adipose tissue METSIM study (n=770): https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5339333/
+
+
+
+abdominal fat tissue (n=742 for omental fat and n=610 for subcutaneous fat) from the bariatric surgery study68, abdominal subcutaneous fat tissue (n=54) and gluteal subcutaneous fat tissue (n=65) from the MolOBB study69
+
+
+Sara's scripts and datasets on the whr analysis:
+https://github.com/lindgrengroup/fatdistnGWAS
+
+
+STATUS:
+1) Waiting for Yengo to send a list of the 536 loci identified in his meta-analysis for BMI.
+
+
