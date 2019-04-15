@@ -19,6 +19,21 @@ BMI to do
 ===============
 
 
+TRYING TO OVERLAP YENGO'S RESULTS WITH ALL BMI SMR RESULTS
+
+sed -i 's/^/chr/' yengo_resultsall.bed
+intersectBed -wa -wb -a yengo_resultsall.bed -b SMR_resultsall.bed > SMR_yengo_merged.bed
+
+
+
+Only 131 of Yengo's loci had mapped in merge.
+204 SNPs from the SMR analysis were mapped in merge. 287 SNPs are in the SMR results, however. Why the remaining 83 were not?
+
+
+SMR_yengo__genedistance_merged.bed.txt has the merged files up to -500 +500 according to GENE distance.
+SMR_resultsall.bed.xlsx has the merged files up to -500 +500 according to topSNP distance.
+
+
 WHR
 
 ==== MUTHER 
