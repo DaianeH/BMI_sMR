@@ -1,0 +1,141 @@
+
+- abdominal fat tissue (n=742 for omental fat and n=610 for subcutaneous fat) from the bariatric surgery study68 (Zhong, H., Yang, X., Kaplan, L. M., Molony, C. & Schadt, E. E. Integrating pathway analysis and genetics of gene expression for genome-wide association studies. Am. J. Hum. Genet. 86, 581–591 (2010).), 
+-  abdominal subcutaneous fat tissue (n=54) and gluteal subcutaneous fat tissue (n=65) from the MolOBB study69 (Min, J. L. et al. Coexpression network analysis in abdominal and gluteal adipose tissue reveals regulatory genetic loci for metabolic syndrome and related phenotypes. PLoS Genet. 8, e1002505 (2012).)
+- Subcutaneous adipose tissue METSIM study (n=770): https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5339333/
+
+======= PREPARING ADIPOSE SMR FORMAT
+
+==== GTEX ADIPOSE
+
+- Downloaded from SMR website
+
+----------------------
+    
+=== METSIM
+    
+-- METSIM study has SMR files (waiting for the PI to answer with them)
+      https://www.sciencedirect.com/science/article/pii/S0002929717300289#mmc2
+
+----------------------
+
+
+==== MUTHER
+== Getting info on allele 2:
+awk 'BEGIN { OFS = "\t"} { print $5, $2:$3 }' UK10K_results_Fat > UK10K_results_Fat_allele.txt
+
+awk 'BEGIN { OFS = "\t"} { print $6, $1, $8, $9, $10, $2, $1, $3, $9="+", $11, $12, $13, $1":"$8 }' MuTHER_top_cis_eQTL_per_probe_Fat.txt > MuTHER_top_cis_eQTL_per_probe_Fat_SMR_inter.txt
+
+Now merge the two to get A2:
+
+perl /hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 UK10K_results_Fat_allele.txt --file2 MuTHER_top_cis_eQTL_per_probe_Fat_SMR_inter.txt --index CHR:SNP_Coor > MuTHER_fat_merged.txt
+
+NO CHR AND POSITION MERGED BECAUSE MuTHER_top_cis_eQTL_per_probe_Fat.txt IS IN HG18 AND UK10K_results_Fat IS IN HG19.
+
+== Download  liftOver binary from https://genome.sph.umich.edu/wiki/LiftOver#Lift_genome_positions (also available on http://genome.ucsc.edu/cgi-bin/hgLiftOver ) and  hg18 to hg 19 chain file.
+sed -i 's/^/chr/' MuTHER_top_cis_eQTL_per_probe_Fat_chrpos.txt 
+mv MuTHER_top_cis_eQTL_per_probe_Fat_chrpos.txt MuTHER_top_cis_eQTL_per_probe_Fat_chrpos.bed
+
+Run liftover:
+liftOver input.bed hg18ToHg19.over.chain.gz output.bed unlifted.bed
+
+did not work, so lifted over using the online tool
+
+as a result, the following were not lifted over:
+
+#Deleted in new
+chr17	59846978	59846979	rs9894547
+#Deleted in new
+chr17	59869144	59869145	rs7501783
+#Deleted in new
+chr7	141920602	141920603	rs2734184
+#Deleted in new
+chr3	195548222	195548223	rs5001412
+#Deleted in new
+chr7	141714717	141714718	rs2886841
+#Deleted in new
+chr7	141981664	141981665	rs361473
+#Deleted in new
+chr17	59840015	59840016	rs9907512
+
+but the remaining  23220 records records were. Log:
+Minimum ratio of bases that must remap:	0.95
+ 
+BED 4 to BED 6 Options
+Allow multiple output regions:	off
+  Minimum hit size in query:	0
+  Minimum chain size in target:	0
+ 
+BED 12 Options
+Min ratio of alignment blocks or exons that must map:	1.00
+If thickStart/thickEnd is not mapped, use the closest mapped base:	off
+
+=== Now need to map these regions back to MuTHER_top_cis_eQTL_per_probe_Fat_SMR_inter.txt with mergetables
+perl /hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 MuTHER_top_cis_eQTL_per_probe_Fat_chrpos_liftedover.bed  --file2 MuTHER_top_cis_eQTL_per_probe_Fat_SMR_inter.txt --index SNP > MuTHER_fat_liftedover_merged.txt
+
+replace space with tab
+sed -i 's/ /\t/' MuTHER_fat_liftedover_merged.txt
+
+replace chr with nothing
+sed -i 's/chr//' MuTHER_fat_liftedover_merged.txt
+
+awk 'BEGIN { OFS = "\t"} { print $1, $14, $15, $4, $5, $6, $7, $8, $9, $10, $11, $12, $14":"$15 }' MuTHER_fat_liftedover_merged.txt > MuTHER_fat_liftedover_merged_intermediate.txt
+
+
+Now merge the two to get A2:
+
+perl /hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 UK10K_results_Fat_allele.txt --file2 MuTHER_fat_liftedover_merged_intermediate.txt --index CHR:SNP_Coor > MuTHER_fat_merged.txt
+
+replace spaces with tabs:
+sed -i 's/ /\t/'  MuTHER_fat_merged.txt
+
+copy everything to the right columns:
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $14, $5, $6, $7, $8, $9, $10, $11, $12}' MuTHER_fat_merged.txt > MuTHER_fat_merged_almostquery.txt
+
+Now gene bp is missing (goddamnit). Download from biomart build 37 - file mart_export.txt containing Gene_bp	Gene
+Merge using key Gene
+perl /hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 mart_export.txt --file2 MuTHER_fat_merged_almostquery.txt --index Gene > MuTHER_fat_merged_almostquery_superalmost.txt
+
+sed -i 's/ /\t/'  MuTHER_fat_merged.txt
+
+copy everything to the right columns:
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $5, $6, $7, $8, $14, $9, $10, $11, $12, $13}' MuTHER_fat_merged_almostquery_superalmost.txt > MuTHER_fat_query_ready.txt
+
+rename headers
+
+make besd
+smr --qfile myquery.txt --make-besd --out mybesd 
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/muther_smr_query.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr
+
+MUTHER RESULTS:
+
+/hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr
+
+
+
+
+
+
+
+====================== RUNNING SMR ON ADIPOSE TISSUE ======================
+
+
+== WHR
+
+---- GTEX
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/GTEx_V7_cis_eqtl_summary_lite/Adipose_Subcutaneous_1e-05 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_adipose_gtex_sub --thread-num 10
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/GTEx_V7_cis_eqtl_summary_lite/Adipose_Visceral_Omentum_1e-05 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_adipose_visc --thread-num 10
+
+---- MuTHER
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_MuTHER --thread-num 10
+
+
+
+
+
+== BMI
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/GTEx_V7_cis_eqtl_summary_lite/Adipose_Subcutaneous_1e-05 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_adipose_gtex_sub --thread-num 10
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/GTEx_V7_cis_eqtl_summary_lite/Adipose_Visceral_Omentum_1e-05 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/locke_ukb_adipose_visc --thread-num 10
+
