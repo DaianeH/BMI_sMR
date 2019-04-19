@@ -1,0 +1,38 @@
+
+Sara's scripts and datasets on the whr analysis:
+https://github.com/lindgrengroup/fatdistnGWAS
+
+
+==== MERGING SMR RESULTS:
+
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 datafile_1 --file2 datafile_2 --index index_string
+
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl merge_tables.pl --file1 cmc.txt --file2 eqtlgen.txt --index probeID > eQTLgen_cmc.txt
+
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl merge_tables.pl --file1 gtex_brain.txt --file2 eQTLgen_cmc.txt --index probeID > eQTLgen_cmc_gtex.txt
+
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl merge_tables.pl --file1 rosmap.txt --file2 eQTLgen_cmc_gtex.txt --index probeID > eQTLgen_cmc_gtex_rosmap.txt
+
+===============
+
+
+TRYING TO OVERLAP YENGO'S RESULTS WITH ALL BMI SMR RESULTS
+
+sed -i 's/^/chr/' yengo_resultsall.bed
+intersectBed -wa -wb -a yengo_resultsall.bed -b SMR_resultsall.bed > SMR_yengo_merged.bed
+
+Only 131 of Yengo's loci had mapped in merge.
+204 SNPs from the SMR analysis were mapped in merge. 287 SNPs are in the SMR results, however. Why the remaining 83 were not?
+
+
+SMR_yengo__genedistance_merged.bed.txt has the merged files up to -500 +500 according to GENE distance.
+SMR_resultsall.bed.xlsx has the merged files up to -500 +500 according to topSNP distance.
+
+
+===== Getting LD between GWAS loci and UKB
+plink --bfile yourfavrefpanel --ld rs1234 rs5678
+
+plink --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --ld rs12044597 rs2272908
+
+
+----------------------
