@@ -1,0 +1,9 @@
+=== Exonic, in LD (r2>0.6), dist 500, CADD > 12.37
+# Run vep to get (Nathalie will send me the parameters) on additional criteria for pathogenicity)
+
+
+=== Exonic, not in LD (r2<0.05), dist 500, non-synonymous, rare (maf < 0.1)
+# Running FUMA
+
+
+
