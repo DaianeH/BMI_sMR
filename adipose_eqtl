@@ -10,14 +10,6 @@
 - Downloaded from SMR website
 
 ----------------------
-    
-=== METSIM
-    
--- METSIM study has SMR files (waiting for the PI to answer with them)
-      https://www.sciencedirect.com/science/article/pii/S0002929717300289#mmc2
-
-----------------------
-
 
 ==== MUTHER
 == Getting info on allele 2:
@@ -110,6 +102,17 @@ MUTHER RESULTS:
 
 /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr
 
+
+=== METSIM
+    
+-- METSIM study has SMR files (waiting for the PI to answer with them)
+      https://www.sciencedirect.com/science/article/pii/S0002929717300289#mmc2
+
+Calvin sent reference allele followed by the effect allele so I'll change their order from the file smr_export.txt . Will also filter for only those with P < 1e-5
+ 
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $5, $4, $6, $7, $8, $9, $10, $11, $12, $13, $14 < 1e-5 }'  smr_export.txt > metsim_smr_rightalleles.txt
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim_smr_rightalleles.txt --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_rightalleles --thread-num 10
 
 
 
