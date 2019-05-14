@@ -112,12 +112,31 @@ Calvin sent reference allele followed by the effect allele so I'll change their 
  
 awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $5, $4, $6, $7, $8, $9, $10, $11, $12, $13, $14 < 1e-5 }'  smr_export.txt > metsim_smr_rightalleles.txt
 
-./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim_smr_rightalleles.txt --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_rightalleles --thread-num 10
+## Make query file
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite
 
+## IT doesnt make besd because it says there are duplicates in SNP; probe. Actually, one SNP can be eQTL for more than one gene, that might somehow have the same probe name. So I'll replace the probe name with the gene name.
 
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $5, $6, $10, $8, $9, $10, $11, $12, $13, $14 }'  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite.txt > /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_probegene.txt
 
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_probegene.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite
 
+# was still having problems with duplicates in SNP and gene so:
 
+awk '!seen[$1, $10]++' metsim_smr_rightalleles_lite_nondup.txt > metsim_smr_rightalleles_lite_nondup2.txt
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_nondup2.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite
+
+More errors:
+ERROR: inconsistent alleles for the SNP chr6:32439121 with multiple alleles <C,G> and <A,G>.
+
+So deleted each with sed:
+sed -i '/chr6:32577814/d'  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_nondup2.txt
+
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_nondup2.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite
+
+NOW that the .besd files were created, run SMR:
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_rightalleles --thread-num 10
 
 ====================== RUNNING SMR ON ADIPOSE TISSUE ======================
 
