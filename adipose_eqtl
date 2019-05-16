@@ -103,6 +103,13 @@ MUTHER RESULTS:
 /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr
 
 
+
+
+======= Muther problem with strand
+Run harmonizer software from Michael to retrieve strand information
+Run MuTHER again on adipose and BMI
+
+
 === METSIM
     
 -- METSIM study has SMR files (waiting for the PI to answer with them)
@@ -137,6 +144,17 @@ sed -i '/chr6:32577814/d'  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/met
 NOW that the .besd files were created, run SMR:
 
 ./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_rightalleles --thread-num 10
+
+Because of proportions of allele frequency differences > 22%, changed parameter --diff-freq-prop 0.25
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite --diff-freq-prop 0.25 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_rightalleles --thread-num 10
+
+Now test with BMI
+
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite --diff-freq-prop 0.25 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_rightalleles_BMI --thread-num 10
+
+
+--diff-freq-prop 0.25
 
 ====================== RUNNING SMR ON ADIPOSE TISSUE ======================
 
