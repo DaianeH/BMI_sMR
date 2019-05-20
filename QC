@@ -1,0 +1,45 @@
+Using EasyQC
+
+
+# Metsim
+
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $11, $4, $5, ".", $6, $12, $13, $14, "." }' metsim_smr_rightalleles_lite.txt > metsim_smr_rightalleles_lite_forQC2.txt
+
+dos2unix
+
+SNP	Chr	BP	Orientation	A1	A2	N	EAF	b	se	p	IMPUTATION
+
+RESULT for QC: 
+
+
+# MuTHer
+
+MuTHER_fat_query_ready.txt
+
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $11, $4, $5, ".", $6, $12, $13, $14, "." }' MuTHER_fat_query_ready.txt > MuTHER_fat_forQC.txt
+
+RESULT for QC:  tmail
+RESULT of QC: 
+
+
+
+
+
+Checking alleles:
+
+awk 'BEGIN { OFS = "\t"} { print $2":"$3, $8 }' MuTHER_fat_forQC.txt > muther_chrpos.txt
+/hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 /sc/orga/projects/loosr01a/daiane/projects/smr/data/eqtl/QC/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001 --file2 muther_chrpos.txt --index cptid > muther_chrpos_freqs.
+
+
+### it seems on METSIM the frequency was tested in the wrong allele. Solution: 1-freq:
+
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $5, 1-$6, $7, $8, $9, $10, $11, $12, $13, $14 }' /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite.txt > /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq.txt
+
+
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq
+
+### WHR
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_whr_rightalleles_rightfreq --thread-num 10
+
+### BMI
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_bmi_rightalleles_rightfreq --thread-num 10
