@@ -25,6 +25,10 @@ RESULT of QC:
 
 
 
+
+
+
+
 Checking alleles:
 
 awk 'BEGIN { OFS = "\t"} { print $2":"$3, $8 }' MuTHER_fat_forQC.txt > muther_chrpos.txt
@@ -43,3 +47,16 @@ awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $5, 1-$6, $7, $8, $9, $10, $11,
 
 ### BMI
 ./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_bmi_rightalleles_rightfreq --thread-num 10
+
+ABOVE DID NOT WORK
+
+### RUNNING EASY QC
+
+Clean file:
+/hpc/users/hemerd01/daiane/projects/smr/data/eqtl/QC/metsim_smr_rightalleles_lite_forQC2.numDrop_Missing_N.txt
+
+make a query file from that:
+
+
+
+
