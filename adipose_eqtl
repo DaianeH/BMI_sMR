@@ -94,7 +94,7 @@ awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $5, $6, $7, $8, $14, $9, $10, $
 
 rename headers
 
-make besd
+## make besd
 smr --qfile myquery.txt --make-besd --out mybesd 
 ./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/muther_smr_query.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr
 
@@ -102,12 +102,74 @@ MUTHER RESULTS:
 
 /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr
 
+---- MuTHER
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_MuTHER --thread-num 10
+
+### Atttempt to solver the MuTher NA issue: replace strand with .
+
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, ".", $12, $13, $14 }'  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/muther_smr_query.txt > /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/muther_smr_query_nostrand.txt
+
+## make besd
+smr --qfile myquery.txt --make-besd --out mybesd 
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/muther_smr_query_nostrand.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr_nostrand
+
+## run SMR
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr_nostrand --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_MuTHER_nostrand --thread-num 10
+
+
+####### Discovered (with Michael) that some alleles are the same and thus half of the SNPs are being dropped.
+Create a key column chrpos in MuTHER_fat_forQC_NA.txt , and another in UK10K_results_Fat , and merge to get the right alleles.
+
+awk 'BEGIN { OFS = "\t"} { print $2":"$3, $4, $5}' UK10K_results_Fat > UK10K_results_Fat_alleles.txt
+
+awk 'BEGIN { OFS = "\t"} { print $2":"$3, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' MuTHER_fat_forQC_NA.txt > MuTHER_fat_forQC_NA_mergealleles.txt
+
+perl /hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 MuTHER_fat_forQC_NA_mergealleles.txt --file2 UK10K_results_Fat_alleles.txt --index chrpos > MuTHER_fat_forQC_NA_mergealleles_rightalleles.txt
+
+#copy everything in the right columns
+
+awk 'BEGIN { OFS = "\t"} { print $2, $3, $4, $5, $14, $15, $8, $9, $10, $11, $12, $13}' MuTHER_fat_forQC_NA_mergealleles_rightalleles.txt > MuTHER_fat_rightalleles_forQC.txt
+
+PASSED EASYQC
+
+/hpc/users/hemerd01/daiane/projects/smr/data/eqtl/QC/CLEANED.MuTHER_fat_rightalleles_forQC.txt
 
 
 
-======= Muther problem with strand
-Run harmonizer software from Michael to retrieve strand information
-Run MuTHER again on adipose and BMI
+Now make query file 
+
+perl /hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/QC/CLEANED.MuTHER_fat_rightalleles_forQC.txt --file2 /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/muther_smr_query_nostrand.txt  --index SNP > CLEANED.MuTHER_fat_rightalleles_forQC_query_interm.txt
+
+sed -i 's/ /\t/'  
+
+
+Copy the right columns
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $17, $18, $19, $7, $8, $9, $10, ".", $21, $22, $23 }' 
+
+
+CLEANED.MuTHER_fat_rightalleles_forQC_query_final.txt
+
+########
+########
+########
+
+
+
+Make besd file
+
+## make besd
+smr --qfile myquery.txt --make-besd --out mybesd 
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/CLEANED.MuTHER_fat_rightalleles_forQC_query_final.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr_rightalleles
+
+## run SMR
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr_rightalleles --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_MuTHER_rightalleles --thread-num 10
+
+Run SMR
+
+
+
+======================================================================================================
+
 
 
 === METSIM
@@ -151,13 +213,50 @@ Because of proportions of allele frequency differences > 22%, changed parameter 
 
 Now test with BMI
 
-./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite --diff-freq-prop 0.25 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_rightalleles_BMI --thread-num 10
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary  head /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite   --diff-freq-prop 0.25 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_rightalleles_BMI --thread-num 10
 
 
 --diff-freq-prop 0.25
 
-====================== RUNNING SMR ON ADIPOSE TISSUE ======================
+### it seems on METSIM the frequency was tested in the wrong allele. Solution: 1-freq:
 
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $5, 1-$6, $7, $8, $9, $10, $11, $12, $13, $14 }' /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite.txt > /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq.txt
+
+
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq
+
+### WHR
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_whr_rightalleles_rightfreq --thread-num 10
+
+### BMI
+./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_rightfreq --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/metsim_bmi_rightalleles_rightfreq --thread-num 10
+
+ABOVE DID NOT WORK
+
+### RUNNING EASY QC
+
+Clean file:
+/hpc/users/hemerd01/daiane/projects/smr/data/eqtl/QC/metsim_smr_rightalleles_lite_forQC2.numDrop_Missing_N.txt
+
+# make a query file from that:
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $5, $8, $4, $9, $10, $11 }' /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/QC/metsim_smr_rightalleles_lite_forQC2.numDrop_Missing_N.txt > /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_query_easyqc.txt
+
+# mergetables.pl with /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite.txt based on SNP
+
+
+
+SNP     CHR     POS     STRAND  EFFECT_ALLELE   OTHER_ALLELE    N       EAF     BETA    SE      PVAL    IMPUTATION
+
+SNP    Chr BP  A1  A2  Freq    Probe   Probe_Chr   Probe_bp    Gene    Orientation b   se  p
+
+
+## Now easyQC apparently wont work because no alleles are consistent - they're all flipped. So let's re-flip and run again:
+
+awk 'BEGIN { OFS = "\t"} { print $1, $2, $3, $4, $6, $5, $7, $8, $9, $10, $11, $12 }'   /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_forQC2.txt > tmp && mv tmp /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/metsim/metsim_smr_rightalleles_lite_forQC2.txt
+
+
+
+============================================================================================================
 
 == WHR
 
@@ -166,12 +265,6 @@ Now test with BMI
 ./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/GTEx_V7_cis_eqtl_summary_lite/Adipose_Subcutaneous_1e-05 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_adipose_gtex_sub --thread-num 10
 
 ./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/GTEx_V7_cis_eqtl_summary_lite/Adipose_Visceral_Omentum_1e-05 --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_adipose_visc --thread-num 10
-
----- MuTHER
-./smr_Linux --bfile /sc/orga/projects/loosr01a/Arden/UKBB/UKBBRef --gwas-summary /sc/orga/projects/loosr01a/daiane/projects/smr/data/gwas/Whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.HapMap2_only_smr.txt --beqtl-summary  /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr --out /sc/orga/projects/loosr01a/daiane/projects/smr/output/WHR_MuTHER --thread-num 10
-
-
-
 
 
 == BMI
