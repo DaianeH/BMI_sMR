@@ -1,0 +1,17 @@
+## FINEMAP BMI directory:
+/sc/orga/projects/loosr01a/daiane/projects/smr/finemap/BMI
+
+## UKB ref files (snpstats) created with QC tools:
+/sc/orga/projects/loosr01a/Arden/UKBBsnpstats/UKBBv3.[chr].snpstats
+
+
+
+
+
+/hpc/dhl_ec/data/references/1000G/Phase1/PLINK/FIN/FIN.chr[chr].phase1_release_v3.20101123.snps.genotypes.bed
+
+
+The /sc/orga/projects/ipm/data/UKBiobank/UKBiobank_V3/Imputation directory contains all of the .bgen and .bgen.bgi files for each chromosome.
+The /sc/orga/projects/ipm/data/UKBiobank/UKBiobank_V3/Samples directory contains the .sample files
+
+The .incl file I presume is just a list of ID's of the individuals you want to include, which yes, in this case is all Europeans, which Michael created already here: /sc/orga/projects/ipm/data/UKBiobank/Samples/UKBB_EUR_500k.txt
