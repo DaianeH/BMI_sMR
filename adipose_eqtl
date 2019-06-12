@@ -98,6 +98,8 @@ rename headers
 smr --qfile myquery.txt --make-besd --out mybesd 
 ./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/muther_smr_query.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr
 
+
+
 MUTHER RESULTS:
 
 /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr
@@ -184,11 +186,15 @@ Error: No SNP is retained for analysis.
 
 
 
+===== On June 11, Michael retrieved new allele 2.
+
+/hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/NEW_alleles/replacedA2_MuTHER_fat_query_ready.txt
 
 
+/hpc/users/hemerd01/daiane/projects/smr/smr_Linux --qfile replacedA2_MuTHER_fat_query_ready.txt --make-besd --out mybesd replacedA2_MuTHER
 
 
-
+./smr_Linux --qfile /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/muther_smr_query_nostrand_noa2.txt --make-besd --out /hpc/users/hemerd01/daiane/projects/smr/data/eqtl/MuTHER/MuTHER_fat_smr_nostrand_noa2
 
 
 ======================================================================================================
