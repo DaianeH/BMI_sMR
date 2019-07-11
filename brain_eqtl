@@ -245,3 +245,11 @@ PHEIDI > 0.05
  For each probe that passed the genome-wide significance threshold for the SMR test, we tested the heterogeneity in the bxy values estimated for multiple SNPs in the cis-eQTL region using the HEIDI method. We detected heterogeneity for 185 of the 289 genes at PHEIDI < 0.05. We used a P-value threshold of 0.05 for the HEIDI test, without correcting for multiple tests, which is conservative for gene discovery because it retains fewer genes than when correcting for multiple testing. For the remaining 104 genes (Supplementary Table 6) that passed the HEIDI test (PHEIDI ≥ 0.05), we could not reject the null hypothesis that there is a single causal variant affecting both gene expression and trait variation. Hence, these 104 genes (tagged by 112 probes) are the most functionally relevant genes underlying the GWAS hits (68 for height, 9 for BMI, 2 for WHRadjBMI, 9 for rheumatoid arthritis and 16 for schizophrenia; Table 1) and could be prioritized in follow-up functional studies. There were three non-annotated genes. Interestingly, of the 101 annotated genes, about two-thirds (62 of 101) were not the nearest annotated gene to the top associated GWAS SNP (Table 1). The SMR analysis (including an SMR test followed by a HEIDI test), which only uses summary data in the public domain, provides a useful tool to prioritize genes at a known trait- or disease-associated locus for functional studies (Fig. 3).
 
 
+
+### Nearest gene
+
+bedtools closest -a genes.bed -b loci.bed -d | head
+
+/hpc/cog_bioinf/common_scripts/bedtools2/bin/closestBed -a array_MAF2_tmptodist_sorted.txt -b genes_UCSC_sorted.bed -d > array_MAF2_dist.txt
+
+
