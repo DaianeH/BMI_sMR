@@ -1,0 +1,37 @@
+cd /hpc/users/hemerd01/daiane/projects/smr/spredixscan/MetaXcan/software/
+
+module load python/2.7.14 py_packages/2.7 tmux
+
+Example:
+./MetaXcan.py --model_db_path data/DGN-WB_0.5.db --covariance data/covariance.DGN-WB_0.5.txt.gz --gwas_folder data/GWAS --gwas_file_pattern ".*gz" --snp_column SNP --effect_allele_column A1 --non_effect_allele_column A2 --beta_column BETA --pvalue_column P --output_file results/test.csv
+
+11568 genes. Bonferroni corrected = 0.05 / 11568 = 0.00000432
+
+
+data=/hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Amygdala/gtex_v7_Brain_Amygdala_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Amygdala/gtex_v7_Brain_Amygdala_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Amygdala.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Anterior_cingulate_cortex_BA24/gtex_v7_Brain_Anterior_cingulate_cortex_BA24_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Anterior_cingulate_cortex_BA24/gtex_v7_Brain_Anterior_cingulate_cortex_BA24_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Anterior_cingulate_cortex.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Cerebellum/gtex_v7_Brain_Cerebellum_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Cerebellum/gtex_v7_Brain_Cerebellum_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Cerebellum.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Cortex/gtex_v7_Brain_Cortex_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Cortex/gtex_v7_Brain_Cortex_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Cortex.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Frontal_Cortex_BA9/gtex_v7_Brain_Frontal_Cortex_BA9_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Frontal_Cortex_BA9/gtex_v7_Brain_Frontal_Cortex_BA9_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Frontal_Cortex.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Hippocampus/gtex_v7_Brain_Hippocampus_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Hippocampus/gtex_v7_Brain_Hippocampus_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Hippocampus.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Hypothalamus/gtex_v7_Brain_Hypothalamus_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Hypothalamus/gtex_v7_Brain_Hypothalamus_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Hippothalamus.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Nucleus_accumbens_basal_ganglia/gtex_v7_Brain_Nucleus_accumbens_basal_ganglia_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Nucleus_accumbens_basal_ganglia/gtex_v7_Brain_Nucleus_accumbens_basal_ganglia_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Nucleus_accumbens_basal_ganglia.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Putamen_basal_ganglia/gtex_v7_Brain_Putamen_basal_ganglia_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Putamen_basal_ganglia/gtex_v7_Brain_Putamen_basal_ganglia_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Putamen_basal_ganglia.csv
+
+./MetaXcan.py --model_db_path /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Spinal_cord_cervical_c-1/gtex_v7_Brain_Spinal_cord_cervical_c-1_imputed_europeans_tw_0.5_signif.db --covariance /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/Brain_Spinal_cord_cervical_c-1/gtex_v7_Brain_Spinal_cord_cervical_c-1_imputed_eur_covariances.txt.gz --gwas_folder /hpc/users/hemerd01/daiane/projects/smr/spredixscan/data/GWAS --gwas_file_pattern ".*txt" --snp_column SNP --effect_allele_column Tested_Allele --non_effect_allele_column Other_Allele --beta_column BETA --pvalue_column P --output_file results/Brain_Spinal_cord_cervical.csv
+
+
+
+
+
+
