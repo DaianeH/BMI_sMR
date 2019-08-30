@@ -5,3 +5,10 @@ http://gusevlab.org/projects/fusion/#typical-analysis-and-output
 follow steps for installation on 
 https://github.com/bulik/ldsc
 
+summary: /hpc/users/hemerd01/daiane/projects/smr/finemap/BMI/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt
+
+CHR	POS	SNP	Tested_Allele	Other_Allele	Freq_Tested_Allele_in_HRS	BETA	SE	P
+
+./munge_sumstats.py --out bmi_yengo_ldsc --frq Freq_Tested_Allele_in_HRS --a1 Tested_Allele --a2 Other_Allele --sumstats /hpc/users/hemerd01/daiane/projects/smr/finemap/BMI/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt
+
+3) 
