@@ -11,4 +11,141 @@ CHR	POS	SNP	Tested_Allele	Other_Allele	Freq_Tested_Allele_in_HRS	BETA	SE	P
 
 ./munge_sumstats.py --out bmi_yengo_ldsc --frq Freq_Tested_Allele_in_HRS --a1 Tested_Allele --a2 Other_Allele --sumstats /hpc/users/hemerd01/daiane/projects/smr/finemap/BMI/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt
 
-3) 
+Result: /hpc/users/hemerd01/daiane/projects/smr/twas/fusion_twas-master/ldsc/bmi_yengo_ldsc.sumstats
+
+3) Perform expression imputation (TWAS)
+
+cd /hpc/users/hemerd01/daiane/projects/smr/twas/fusion_twas-master
+
+#---- CMC:
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/CMC.BRAIN.RNASEQ.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_cmc_$i.dat; done
+
+5420 ./WEIGHTS/CMC.BRAIN.RNASEQ.pos
+
+cat ./results_yengo/yengo_cmc.dat | awk 'NR == 1 || $NF < 0.05/5420'
+
+
+
+
+
+#!/bin/bash
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/CMC.BRAIN.RNASEQ.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_cmc_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Amygdala.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Amygdala_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Anterior_cingulate_cortex_BA24.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Anterior_cingulate_cortex_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Caudate_basal_ganglia.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Caudate_basal_ganglia_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Cerebellar_Hemisphere.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Cerebellar_Hemisphere_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Cerebellum.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Cerebellum_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Cortex.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Cortex_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Frontal_Cortex_BA9.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Frontal_Cortex_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Hippocampus.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Hippocampus_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Hypothalamus.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Hypothalamus_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Nucleus_accumbens_basal_ganglia.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Nucleus_accumbens_basal_ganglia_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Putamen_basal_ganglia.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Putamen_basal_ganglia_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Spinal_cord_cervical_c-1.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Spinal_cord_cervical_$i.dat; done
+
+for i in {1..22}; do Rscript FUSION.assoc_test.R \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Substantia_nigra.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--chr $i \
+--out ./results_yengo/yengo_Brain_Substantia_nigra_$i.dat; done
+
