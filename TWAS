@@ -32,6 +32,18 @@ for i in {1..22}; do Rscript FUSION.assoc_test.R \
 cat ./results_yengo/yengo_cmc.dat | awk 'NR == 1 || $NF < 0.05/5420'
 
 
+### Testing coloc
+
+Rscript FUSION.assoc_test.R --coloc_P \
+--sumstats ./ldsc/bmi_yengo_ldsc.sumstats \
+--weights ./WEIGHTS/Brain_Amygdala.P01.pos \
+--weights_dir ./WEIGHTS/ \
+--ref_ld_chr ./LDREF/1000G.EUR. \
+--PANELN panelN.txt \
+--chr 22 \
+--out ./results_yengo/yengo_Brain_Amygdala_coloc.dat
+
+
 
 
 
