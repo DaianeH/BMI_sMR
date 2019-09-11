@@ -171,3 +171,10 @@ for i in {1..22}; do Rscript FUSION.assoc_test.R \
 --chr $i \
 --out ./results_yengo/coloc_yengo_Brain_Substantia_nigra_$i.dat; done
 
+
+#### Getting the results ####
+
+
+
+
+
