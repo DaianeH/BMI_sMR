@@ -177,4 +177,12 @@ for i in {1..22}; do Rscript FUSION.assoc_test.R \
 
 
 
+### Getting genes from TWAS analysis on the right table of 536 loci ###
+## Merge tables twas_results.txt with twas_snps_positions.txt
 
+
+## bedtools overlap with bmi_loci.txt
+perl /hpc/users/hemerd01/daiane/tools/merge_tables.pl --file1 twas_snps_positions.txt --file2 twas_results.txt --index EQTL.ID > twas_results_positions.txt
+
+ml bedtools/2.27.1
+intersectBed -wa -wb -a bmi_loci_to_merge.bed -b twas_results_positions_to_merge.bed > twas_results_positions_merged.txt
