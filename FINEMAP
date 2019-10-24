@@ -37,3 +37,6 @@ grep -wvf UKBB_EUR_500k.incl_related  /sc/orga/projects/UKBIOBANK/UKBiobank_V3/S
 perl /sc/orga/projects/loosr01a/daiane/tools/overlap.pl ukb1251_rel_s488363.dat ID UKBB_EUR_500k.incl_related ID -v > UKBB_EUR_500k.incl
  grep -vf UKBB_EUR_500k.incl_related ukb1251_rel_s488363.dat > UKBB_EUR_500k.incl
 change the number of samples on script makeregions.sh too
+
+
+####### FINEMAP had to be re-run with the new version containing new filters for 
