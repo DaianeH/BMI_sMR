@@ -39,4 +39,5 @@ perl /sc/orga/projects/loosr01a/daiane/tools/overlap.pl ukb1251_rel_s488363.dat 
 change the number of samples on script makeregions.sh too
 
 
-####### FINEMAP had to be re-run with the new version containing new filters for 
+####### FINEMAP had to be re-run with the new version containing new filters; also re-run on UKB only:
+summary stats at: /sc/orga/projects/loosr01a/michael/projects/FAT_FFMI_UKBB/BMI_GWAS/analysis
